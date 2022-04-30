@@ -3,10 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "serve": "next start",
-    "dev": "node server.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "serve": "next start",
     "export": "next export",
     "postbuild": "next-sitemap"
   },
