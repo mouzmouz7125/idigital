@@ -4,7 +4,8 @@ import { Scrollbars } from "react-custom-scrollbars";
 import Drawer from "components/drawer";
 import { DrawerContext } from "../../contexts/drawer/drawer.context";
 import { IoMdClose, IoMdMenu } from "react-icons/io";
-import { Link } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
+import Link from "next/link";
 import { GoLocation } from "react-icons/go";
 import { AiOutlineMail } from "react-icons/ai";
 import { AiOutlinePhone } from "react-icons/ai";
@@ -25,7 +26,7 @@ const social = [
   },
 ];
 
-const MobileDrawer = () => {
+const MobileDrawer = ({ externalPage }) => {
   const { state, dispatch } = useContext(DrawerContext);
 
   // Toggle drawer
@@ -52,26 +53,38 @@ const MobileDrawer = () => {
       <Scrollbars autoHide>
         <Box sx={styles.content}>
           <Box sx={styles.menu}>
-            {menuItems.map(({ path, label }, i) => (
-              <Link
-                activeClass="active"
-                to={path}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                key={i}
-              >
-                {label}
-              </Link>
-            ))}
+            {menuItems.map(({ path, label, isPageLink }, i) =>
+              externalPage ? (
+                isPageLink && (
+                  <Link key={i} activeClass="active" href={`/${path}`}>
+                    <a>{label}</a>
+                  </Link>
+                )
+              ) : isPageLink ? (
+                <Link key={i} activeClass="active" href={`/${path}`}>
+                  <a>{label}</a>
+                </Link>
+              ) : (
+                <ScrollLink
+                  activeClass="active"
+                  to={path}
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
+                  key={i}
+                >
+                  {label}
+                </ScrollLink>
+              )
+            )}
           </Box>
 
           <Box sx={styles.menuFooter}>
             <Box sx={styles.social}>
               {social.map(({ path, icon }, i) => (
                 <Box as="span" key={i} sx={styles.social.icon}>
-                  <Link to={path}>{icon}</Link>
+                  <ScrollLink to={path}>{icon}</ScrollLink>
                 </Box>
               ))}
             </Box>
@@ -134,6 +147,9 @@ const styles = {
       cursor: "pointer",
       borderBottom: "1px solid #e8e5e5",
       transition: "all 0.25s",
+      textDecoration: "none !important",
+      color: "black",
+
       "&:hover": {
         color: "secondary",
       },
@@ -162,7 +178,7 @@ const styles = {
       alignItems: "center",
       justifyContent: "center",
       color: "text",
-      fontSize: 15,
+      fontSize: "20px",
       mr: "15px",
       transition: "all 0.25s",
       cursor: "pointer",

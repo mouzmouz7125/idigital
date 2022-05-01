@@ -20,12 +20,12 @@ export default function Header({ className, externalPage }) {
               externalPage ? (
                 isPageLink && (
                   <Link key={i} activeClass="active" href={`/${path}`}>
-                    <a className="hover-underline-animation">{label}</a>
+                    <a>{label}</a>
                   </Link>
                 )
               ) : isPageLink ? (
                 <Link key={i} activeClass="active" href={`/${path}`}>
-                  <a className="hover-underline-animation">{label}</a>
+                  <a>{label}</a>
                 </Link>
               ) : (
                 <ScrollLink
@@ -42,7 +42,7 @@ export default function Header({ className, externalPage }) {
               )
             )}
           </Flex>
-          <MobileDrawer />
+          <MobileDrawer externalPage={externalPage} />
         </Container>
       </header>
     </DrawerProvider>
