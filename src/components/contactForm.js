@@ -48,7 +48,7 @@ const ContactForm = () => {
             };
 
             const response = await fetch(
-              "https://api.formium.io/submit/5fd4e3d79f50150001bac31d/africadev",
+              "https://api.formium.io/submit/632a3ddcebdd950001ff28d1/contact",
               {
                 method: "POST",
                 body: data,
